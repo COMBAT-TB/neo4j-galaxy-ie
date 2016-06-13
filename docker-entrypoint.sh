@@ -22,9 +22,6 @@ if [ "$1" == "neo4j" ]; then
         echo "There is no database in $NEO4JDB_PATH, will exit." >&2
         exit 1
     fi
-    if [ "${NEO4J_AUTH:-}" == "none" ]; then
-        setting "dbms.security.auth_enabled" "false" neo4j-server.properties
-    fi
 
     # set some settings in the neo4j install dir
     /set_neo4j_settings.sh
