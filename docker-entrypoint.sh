@@ -16,13 +16,16 @@ if [ "$1" == "neo4j" ]; then
         EXISTING_GID=$(stat -c '%g' /data)
         echo "The /data volume must be owned by user ID $NEO4J_UID and group ID $NEO4J_GID, instead it is owned by ${EXISTING_UID}: ${EXISTING_GID}" >&2
         exit 1
-
     fi
     if [ ! -d $NEO4JDB_PATH ] ; then
         # gosu $NEO4J_UID:$NEO4J_GID cp -r /opt/neo4j/data $NEO4JDB_PATH
         echo "There is no database in $NEO4JDB_PATH, will exit." >&2
         exit 1
     fi
+    if [ "${NEO4J_AUTH:-}" == "none" ]; then
+    setting "dbms.security.auth_enabled" "false" neo4j-server.properties
+    fi
+
     # set some settings in the neo4j install dir
     /set_neo4j_settings.sh
 
