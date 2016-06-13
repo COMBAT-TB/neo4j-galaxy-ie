@@ -2,7 +2,8 @@
 
 [ -f "${EXTENSION_SCRIPT:-}" ] && . ${EXTENSION_SCRIPT}
 
-if [[ "${NEO4J_AUTH:-}" == none ]]; then
+if [ "${NEO4J_AUTH:-}" == "none" ]; then
+    echo $NEO4J_AUTH
     # this is a no-op, this case is handled in set_neo4j_settings.sh
 elif [[ "${NEO4J_AUTH:-}" == neo4j/* ]]; then
     password="${NEO4J_AUTH#neo4j/}"
