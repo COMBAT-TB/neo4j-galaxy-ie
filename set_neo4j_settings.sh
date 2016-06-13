@@ -11,6 +11,10 @@ setting() {
 
 cd ${NEO4J_INSTALL_DIR:=/opt/neo4j}
 
+if [ "${NEO4J_AUTH:-}" == "none" ]; then
+    setting "dbms.security.auth_enabled" "false" neo4j-server.properties
+fi
+
 setting "keep_logical_logs" "${NEO4J_KEEP_LOGICAL_LOGS:-100M size}" neo4j.properties
 setting "dbms.pagecache.memory" "${NEO4J_CACHE_MEMORY:-512M}" neo4j.properties
 setting "wrapper.java.additional=-Dneo4j.ext.udc.source" "${NEO4J_UDC_SOURCE:-docker}" neo4j-wrapper.conf
