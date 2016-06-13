@@ -23,7 +23,7 @@ if [ "$1" == "neo4j" ]; then
         exit 1
     fi
     if [ "${NEO4J_AUTH:-}" == "none" ]; then
-    setting "dbms.security.auth_enabled" "false" neo4j-server.properties
+        setting "dbms.security.auth_enabled" "false" neo4j-server.properties
     fi
 
     # set some settings in the neo4j install dir
