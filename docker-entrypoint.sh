@@ -27,9 +27,10 @@ if [ "$1" == "neo4j" ]; then
         exit 1
     fi
     if [ ! -d $NEO4JDB_PATH ] ; then
-        # gosu $NEO4J_UID:$NEO4J_GID cp -r /opt/neo4j/data $NEO4JDB_PATH
-        echo "There is no database in $NEO4JDB_PATH, will exit." >&2
-        exit 1
+        gosu $NEO4J_UID:$NEO4J_GID cp -r /opt/neo4j/data $NEO4JDB_PATH
+        echo "Initialising new database in $NEO$JDB_PATH"
+        # echo "There is no database in $NEO4JDB_PATH, will exit." >&2
+        # exit 1
     fi
 
     # set some settings in the neo4j install dir
