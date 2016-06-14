@@ -9,12 +9,12 @@ if [ "$1" == "neo4j" ]; then
         exit 1
     fi
     
-    NEO4J_GROUP=$(getend group $NEO4J_GID | cut -d: -f1)
+    NEO4J_GROUP=$(getent group $NEO4J_GID | cut -d: -f1)
     if [ $? -ne 0 ] ; then
         NEO4J_GROUP=neo4j
         groupadd -g $NEO4J_GID $NEO4J_GROUP
     fi
-    NEO4J_USER=$(getend passwd $NEO4J_UID | cut -d: -f1)
+    NEO4J_USER=$(getent passwd $NEO4J_UID | cut -d: -f1)
     if [ $? -ne 0 ] ; then
         NEO4J_USER=neo4j
         useradd -u $NEO4J_UID -g $NEO4J_GROUP $NEO4J_USER
