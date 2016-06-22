@@ -36,7 +36,8 @@ nodejs:
 $ node -v
 v0.10.45
 ```
-
+Set interactive_environment_plugins_directory to config/plugins/interactive_environments in config/galaxy.ini
+ 
 Next, [follow](galaxy/README.md) in the `galaxy` folder to get the Neo4j IE installed.
 
 Then, [setup](https://docs.galaxyproject.org/en/master/admin/interactive_environments.html#setting-up-the-proxy) your proxy accordingly.
