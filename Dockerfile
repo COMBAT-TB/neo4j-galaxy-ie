@@ -1,5 +1,11 @@
 FROM java:openjdk-8-jre
 
+ENV $NEO4J_GID none
+ENV $NEO4J_UID none
+
+RUN groupadd -g $NEO4J_GID galaxy \
+    && useradd -u $NEO4J_UID galaxy -g galaxy
+    
 RUN apt-get update --quiet --quiet \
     && apt-get install --quiet --quiet --no-install-recommends lsof net-tools \
     && rm -rf /var/lib/apt/lists/* \
@@ -17,6 +23,10 @@ RUN set -x \
     && chmod +x /usr/local/bin/gosu \
     && gosu nobody true \
     && apt-get purge -y --auto-remove wget
+    
+RUN chown -R galaxy:galaxy /opt /data
+
+USER galaxy
 
 ENV NEO4J_VERSION 2.3.3
 ENV NEO4J_EDITION community
