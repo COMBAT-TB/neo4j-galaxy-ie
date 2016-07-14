@@ -8,7 +8,7 @@ if [ "$1" == "neo4j" ]; then
         echo "You need to set the NEO4J_UID and NEO4J_GID environment variables to use this container." >&2
         exit 1
     fi
-    
+
     NEO4J_GROUP=$(getent group $NEO4J_GID | cut -d: -f1)
     if [ -z "$NEO4J_GROUP" ] ; then
         NEO4J_GROUP=neo4j
@@ -19,7 +19,7 @@ if [ "$1" == "neo4j" ]; then
         NEO4J_USER=neo4j
         useradd -u $NEO4J_UID -g $NEO4J_GROUP $NEO4J_USER
     fi
-
+    chown -R $NEO4J_UID:$NEO4J_GID /opt /data
     if [ $(stat -c '%u' /data) -ne $NEO4J_UID -o $(stat -c '%g' /data) -ne $NEO4J_GID ] ; then
         EXISTING_UID=$(stat -c '%u' /data)
         EXISTING_GID=$(stat -c '%g' /data)

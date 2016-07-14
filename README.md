@@ -51,9 +51,10 @@ Thanks to [@bgruening](https://github.com/bgruening) and [@erasche](https://gith
 For interest's sake, to run this:
 
 ```
-$ docker run \
-  -p 7474:7474 \
-  -v /tmp/data:/data \
-  -e NEO4J_AUTH=none -e NEO4J_UID=$(id -u) -e NEO4J_GID=$(id -g) \
-  thoba/neo4j_galaxy_ie
+$ docker run -d \
+    -p 7474:7474 \
+    -v /tmp/data:/data \
+    -e NEO4J_AUTH=none -e NEO4J_UID=$(id -u) -e NEO4J_GID=$(id -g) \
+    thoba/neo4j_galaxy_ie
 ```
+
