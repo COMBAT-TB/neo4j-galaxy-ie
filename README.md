@@ -46,8 +46,14 @@ You should the see the image below upon firing up the IE:
 
 ![Neo4j_IE](https://raw.githubusercontent.com/thobalose/neo4j_galaxy_ie/master/neo4j_ie.png)
 
-Thanks to @bgruening and @erasche.
+Thanks to [@bgruening](https://github.com/bgruening) and [@erasche](https://github.com/erasche).
 
-For interest's sake, the way to run this from the command line is something like:
+For interest's sake, to run this:
 
-    docker run -p 7474:7474 -v /tmp/data:/data -e NEO4J_AUTH=neo4j/Neo4j -e NEO4J_UID=$(id -u) -e NEO4J_GID=$(id -g) thoba/neo4j_galaxy_ie
+```
+$ docker run \
+  -p 7474:7474 \
+  -v /tmp/data:/data \
+  -e NEO4J_AUTH=none -e NEO4J_UID=$(id -u) -e NEO4J_GID=$(id -g) \
+  thoba/neo4j_galaxy_ie
+```
