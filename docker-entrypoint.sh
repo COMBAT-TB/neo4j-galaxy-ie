@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-NEO4JDB_PATH=/data/neo4jdb
+NEO4JDB_PATH=/data
 export NEO4JDB_PATH
 
 if [ "$1" == "neo4j" ]; then
