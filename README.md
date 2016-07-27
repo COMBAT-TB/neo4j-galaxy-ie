@@ -7,7 +7,7 @@ A modified version of the Neo4j:2.3.3 Docker image to cater for the current [Gal
 **Build the image:**
 
 ```
-$ docker build -t thoba/neo4j_galaxy_ie .
+$ docker build -t thoba/neo4j_galaxy_ie:v1 .
 ```
 
 *or*
@@ -15,7 +15,7 @@ $ docker build -t thoba/neo4j_galaxy_ie .
 **Pull the image:**
 
 ```
-$ docker pull thoba/neo4j_galaxy_ie
+$ docker pull thoba/neo4j_galaxy_ie:v1
 ```
 
 *Try make sure you have nodejs `v0.10.45` and that you can run `$ node` (you might have to set a symlink)*
@@ -55,6 +55,6 @@ $ docker run -d \
     -p 7474:7474 \
     -v /tmp/data:/data \
     -e NEO4J_AUTH=none -e NEO4J_UID=$(id -u) -e NEO4J_GID=$(id -g) \
-    thoba/neo4j_galaxy_ie
+    thoba/neo4j_galaxy_ie:v1
 ```
 
