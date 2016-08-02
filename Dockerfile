@@ -1,11 +1,4 @@
 FROM java:openjdk-8-jre
-
-# ENV $NEO4J_GID none
-# ENV $NEO4J_UID none
-
-# RUN groupadd -g $NEO4J_GID galaxy \
-#     && useradd -u $NEO4J_UID galaxy -g galaxy
-    
 RUN apt-get update --quiet --quiet \
     && apt-get install --quiet --quiet --no-install-recommends lsof net-tools \
     && rm -rf /var/lib/apt/lists/* \
@@ -23,10 +16,6 @@ RUN set -x \
     && chmod +x /usr/local/bin/gosu \
     && gosu nobody true \
     && apt-get purge -y --auto-remove wget
-    
-# RUN chown -R galaxy:galaxy /opt /data
-
-# USER galaxy
 
 ENV NEO4J_VERSION 2.3.3
 ENV NEO4J_EDITION community
@@ -62,10 +51,10 @@ VOLUME /data
 
 WORKDIR /opt/neo4j
 
-ADD docker-entrypoint.sh /docker-entrypoint.sh
-ADD run_neo4j.sh /run_neo4j.sh
-ADD set_neo4j_settings.sh /set_neo4j_settings.sh
-ADD monitor_traffic.sh /monitor_traffic.sh
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY run_neo4j.sh /run_neo4j.sh
+COPY set_neo4j_settings.sh /set_neo4j_settings.sh
+COPY monitor_traffic.sh /monitor_traffic.sh
 
 EXPOSE 7474
 
