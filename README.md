@@ -1,5 +1,7 @@
 ## Neo4jDB_Galaxy_IE
 
+[![Neo4j_IE](http://dockeri.co/image/thoba/neo4j_galaxy_ie)](https://hub.docker.com/r/thoba/neo4j_galaxy_ie/)
+
 A modified version of the Neo4j:2.3.3 Docker image to cater for the current [Galaxy port_mapping](https://github.com/galaxyproject/galaxy/blob/dev/lib/galaxy/web/base/interactive_environments.py#L381).
 
 **This image has been modified to expose a single port(7474).**
@@ -37,7 +39,7 @@ $ node -v
 v0.10.45
 ```
 Set `interactive_environment_plugins_directory` to `config/plugins/interactive_environments` in `config/galaxy.ini`
- 
+
 Next, [follow](galaxy/README.md) in the `galaxy` folder to get the Neo4j IE installed.
 
 Then, [setup](https://docs.galaxyproject.org/en/master/admin/interactive_environments.html#setting-up-the-proxy) your proxy accordingly.
@@ -57,4 +59,3 @@ $ docker run -d \
     -e NEO4J_AUTH=none -e NEO4J_UID=$(id -u) -e NEO4J_GID=$(id -g) \
     thoba/neo4j_galaxy_ie:v1
 ```
-
