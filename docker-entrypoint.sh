@@ -13,6 +13,7 @@ if [ "$1" == "neo4j" ]; then
     if [ -z "$NEO4J_GROUP" ] ; then
         NEO4J_GROUP=neo4j
         groupadd -g $NEO4J_GID $NEO4J_GROUP
+        echo "Added $NEO4J_GID to $NEO4J_GROUP"
     fi
     NEO4J_USER=$(getent passwd $NEO4J_UID | cut -d: -f1)
     if [ -z "$NEO4J_USER" ] ; then
@@ -20,6 +21,9 @@ if [ "$1" == "neo4j" ]; then
         useradd -u $NEO4J_UID -g $NEO4J_GROUP $NEO4J_USER
     fi
     chown -R $NEO4J_UID:$NEO4J_GID /opt /data
+    EXISTING_UID=$(stat -c '%u' /data)
+    EXISTING_GID=$(stat -c '%g' /data)
+    echo "/opt /data $EXISTING_UID $EXISTING_GID"
     if [ $(stat -c '%u' /data) -ne $NEO4J_UID -o $(stat -c '%g' /data) -ne $NEO4J_GID ] ; then
         EXISTING_UID=$(stat -c '%u' /data)
         EXISTING_GID=$(stat -c '%g' /data)
