@@ -43,6 +43,7 @@ unset NEO4J_dbms_txLog_rotation_retentionPolicy NEO4J_UDC_SOURCE \
 
 # Custom settings for dockerized neo4j
 : ${NEO4J_dbms_directories_data:=/data/neo4jdb}
+: ${NEO4J_dbms_allow__format__migration:=true}
 : ${NEO4J_dbms_tx__log_rotation_retention_policy:=100M size}
 : ${NEO4J_dbms_memory_pagecache_size:=512M}
 : ${NEO4J_wrapper_java_additional:=-Dneo4j.ext.udc.source=docker}

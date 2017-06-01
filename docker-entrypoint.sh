@@ -2,7 +2,6 @@
 
 DB_PATH=/data/neo4jdb
 export DB_PATH
-NEO4J_dbms__directories__data=/data/neo4jdb
 
 if [ "$1" == "neo4j" ]; then
     if [ "${USER_UID:=none}" = "none" -o "${USER_GID:=none}" = "none" ] ; then
@@ -40,7 +39,7 @@ if [ "$1" == "neo4j" ]; then
 
     # set some settings in the neo4j install dir
     /set_neo4j_settings.sh
-
+    cat conf/neo4j.conf
     rm -rf /opt/neo4j/data
     ln -s $DB_PATH /opt/neo4j/data
     # Launch traffic monitor which will automatically kill the container if

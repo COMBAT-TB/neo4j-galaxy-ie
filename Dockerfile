@@ -56,7 +56,6 @@ VOLUME /import
 VOLUME /data
 
 WORKDIR /opt/neo4j
-
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY run_neo4j.sh /run_neo4j.sh
 COPY set_neo4j_settings.sh /set_neo4j_settings.sh
