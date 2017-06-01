@@ -1,8 +1,7 @@
 ## Neo4jDB_Galaxy_IE
 
-[![Neo4j_IE](http://dockeri.co/image/thoba/neo4j_galaxy_ie)](https://hub.docker.com/r/thoba/neo4j_galaxy_ie/)
-
 [![Docker Repository on Quay](https://quay.io/repository/thoba/neo_ie/status "Docker Repository on Quay")](https://quay.io/repository/thoba/neo_ie)
+
 A modified version of the Neo4j:2.3.3 Docker image to cater for the current [Galaxy port_mapping](https://github.com/galaxyproject/galaxy/blob/dev/lib/galaxy/web/base/interactive_environments.py#L381).
 
 **This image has been modified to expose a single port(7474).**
