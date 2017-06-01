@@ -17,13 +17,18 @@ RUN set -x \
     && gosu nobody true \
     && apt-get purge -y --auto-remove wget
 
-ENV NEO4J_VERSION 3.1.0
+ENV NEO4J_VERSION 3.2.0
 ENV NEO4J_EDITION community
-ENV NEO4J_DOWNLOAD_SHA256 47317a5a60f72de3d1b4fae4693b5f15514838ff3650bf8f2a965d3ba117dfc2
+ENV NEO4J_DOWNLOAD_SHA256 77c0c142343ea834852d237828f1ddd8cb2d4b7be9131a00b4ec4e3c48d6f6d0
 ENV NEO4J_DOWNLOAD_ROOT http://dist.neo4j.org
 ENV NEO4J_TARBALL neo4j-$NEO4J_EDITION-$NEO4J_VERSION-unix.tar.gz
 ENV NEO4J_URI $NEO4J_DOWNLOAD_ROOT/$NEO4J_TARBALL
 ENV NEO4J_AUTH none
+# setting "dbms.connector.bolt.enabled" "false"
+# setting "dbms.connector.https.enabled" "false"
+
+ENV NEO4J_dbms_connector_bolt_enabled false
+ENV NEO4J_dbms_connector_https_enabled false
 
 # These environment variables are passed from Galaxy to the container
 # and help you enable connectivity to Galaxy from within the container.

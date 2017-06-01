@@ -2,6 +2,7 @@
 
 [![Neo4j_IE](http://dockeri.co/image/thoba/neo4j_galaxy_ie)](https://hub.docker.com/r/thoba/neo4j_galaxy_ie/)
 
+[![Docker Repository on Quay](https://quay.io/repository/thoba/neo_ie/status "Docker Repository on Quay")](https://quay.io/repository/thoba/neo_ie)
 A modified version of the Neo4j:2.3.3 Docker image to cater for the current [Galaxy port_mapping](https://github.com/galaxyproject/galaxy/blob/dev/lib/galaxy/web/base/interactive_environments.py#L381).
 
 **This image has been modified to expose a single port(7474).**
@@ -9,7 +10,7 @@ A modified version of the Neo4j:2.3.3 Docker image to cater for the current [Gal
 **Build the image:**
 
 ```
-$ docker build -t thoba/neo4j_galaxy_ie:v1 .
+$ docker build -t quay.io/thoba/neo_ie:v1 .
 ```
 
 *or*
@@ -17,7 +18,7 @@ $ docker build -t thoba/neo4j_galaxy_ie:v1 .
 **Pull the image:**
 
 ```
-$ docker pull thoba/neo4j_galaxy_ie:v1
+$ docker pull quay.io/thoba/neo_ie:v1
 ```
 
 *Try make sure you have nodejs `v0.10.45` and that you can run `$ node` (you might have to set a symlink)*
@@ -52,10 +53,10 @@ Thanks to [@bgruening](https://github.com/bgruening) and [@erasche](https://gith
 
 For interest's sake, to run this:
 
-```
+```sh
 $ docker run -d \
     -p 7474:7474 \
     -v /tmp/data:/data \
-    -e NEO4J_AUTH=none -e NEO4J_UID=$(id -u) -e NEO4J_GID=$(id -g) \
-    thoba/neo4j_galaxy_ie:v1
+    -e NEO4J_AUTH=none -e USER_UID=$(id -u) -e USER_GID=$(id -g) \
+    quay.io/thoba/neo_ie:v1
 ```
