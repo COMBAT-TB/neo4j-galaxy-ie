@@ -43,6 +43,7 @@ unset NEO4J_dbms_txLog_rotation_retentionPolicy NEO4J_UDC_SOURCE \
 
 # Custom settings for dockerized neo4j
 : ${NEO4J_dbms_directories_data:=/data/neo4jdb}
+: ${NEO4J_dbms_allow__format__migration:=true}
 : ${NEO4J_dbms_tx__log_rotation_retention_policy:=100M size}
 : ${NEO4J_dbms_memory_pagecache_size:=512M}
 : ${NEO4J_wrapper_java_additional:=-Dneo4j.ext.udc.source=docker}
@@ -50,6 +51,7 @@ unset NEO4J_dbms_txLog_rotation_retentionPolicy NEO4J_UDC_SOURCE \
 : ${NEO4J_dbms_memory_heap_max__size:=512M}
 : ${NEO4J_dbms_connectors_default__listen__address:=0.0.0.0}
 : ${NEO4J_dbms_connector_http_listen__address:=0.0.0.0:7474}
+: ${NEO4J_dbms_connector_bolt_listen__address:=0.0.0.0:7687}
 : ${NEO4J_ha_host_coordination:=$(hostname):5001}
 : ${NEO4J_ha_host_data:=$(hostname):6001}
 : ${NEO4J_causal__clustering_discovery__listen__address:=0.0.0.0:5000}
