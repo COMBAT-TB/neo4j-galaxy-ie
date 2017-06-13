@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # https://github.com/bgruening/docker-ipython-notebook/blob/master/monitor_traffic.sh
-if [ "$NEO4J_MONITOR_TRAFFIC" != "false" ] ; then
+if [ "$MONITOR_TRAFFIC" != "false" ] ; then
     echo "--- Monitoring Traffic ---"
     while true; do
         sleep 60
