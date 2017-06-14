@@ -26,7 +26,11 @@ setting "dbms.allow_format_migration" "${NEO4J_dbms_allowFormatMigration:-}"
 if [ "${NEO4J_AUTH:-}" == "none" ]; then
     setting "dbms.security.auth_enabled" "false"
 fi
-setting "dbms.connector.bolt.enabled" "false"
+if [ "${ENABLE_BOLT:-}" == "true" ]; then
+    setting "dbms.connector.bolt.enabled" "true"
+else
+    setting "dbms.connector.bolt.enabled" "false"
+fi
 setting "dbms.connector.https.enabled" "false"
 setting "dbms.connectors.default_listen_address" "0.0.0.0"
 setting "dbms.connector.http.listen_address" "0.0.0.0:7474"
@@ -60,4 +64,3 @@ fi
 if [ -d /logs ]; then
     setting "dbms.directories.logs" "/logs" neo4j.conf
 fi
-
