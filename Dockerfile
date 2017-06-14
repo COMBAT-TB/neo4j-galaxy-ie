@@ -1,5 +1,6 @@
-FROM java:openjdk-8-jre
+FROM openjdk:8-jre
 RUN apt-get update --quiet --quiet \
+    && apt-get upgrade -y \
     && apt-get install --quiet --quiet --no-install-recommends lsof net-tools \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir /data
