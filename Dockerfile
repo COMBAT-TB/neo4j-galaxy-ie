@@ -1,26 +1,34 @@
-FROM openjdk:8-jre
-RUN apt-get update --quiet --quiet \
-    && apt-get upgrade -y \
-    && apt-get install --quiet --quiet --no-install-recommends lsof net-tools \
-    && rm -rf /var/lib/apt/lists/* \
+FROM openjdk:8-jre-alpine
+
+RUN apk update \
+    && apk upgrade \
+    && apk add --update --no-cache --quiet lsof net-tools wget bash \
     && mkdir /data
 
-ENV GOSU_VERSION 1.7
-RUN set -x \
-    && apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
-    && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-    && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
-    && export GNUPGHOME="$(mktemp -d)" \
-    && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-    && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-    && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
-    && chmod +x /usr/local/bin/gosu \
-    && gosu nobody true \
-    && apt-get purge -y --auto-remove wget
+ENV GOSU_VERSION="1.7" \
+	GOSU_DOWNLOAD_URL="https://github.com/tianon/gosu/releases/download/1.7/gosu-amd64" \
+	GOSU_DOWNLOAD_SIG="https://github.com/tianon/gosu/releases/download/1.7/gosu-amd64.asc" \
+	GOSU_DOWNLOAD_KEY="0x036A9C25BF357DD4"
 
-ENV NEO4J_VERSION 3.1.0
+#   https://github.com/tianon/gosu/releases
+RUN buildDeps='curl gnupg' HOME='/root' \
+	&& set -x \
+	&& apk add --update $buildDeps \
+	&& gpg-agent --daemon \
+	&& gpg --keyserver pgp.mit.edu --recv-keys $GOSU_DOWNLOAD_KEY \
+	&& echo "trusted-key $GOSU_DOWNLOAD_KEY" >> /root/.gnupg/gpg.conf \
+	&& curl -sSL "$GOSU_DOWNLOAD_URL" > gosu-amd64 \
+	&& curl -sSL "$GOSU_DOWNLOAD_SIG" > gosu-amd64.asc \
+	&& gpg --verify gosu-amd64.asc \
+	&& rm -f gosu-amd64.asc \
+	&& mv gosu-amd64 /usr/bin/gosu \
+	&& chmod +x /usr/bin/gosu \
+	&& rm -rf /root/.gnupg \
+	&& rm -rf /var/cache/apk/*
+
+ENV NEO4J_VERSION 3.1.5
 ENV NEO4J_EDITION community
-ENV NEO4J_DOWNLOAD_SHA256 47317a5a60f72de3d1b4fae4693b5f15514838ff3650bf8f2a965d3ba117dfc2
+ENV NEO4J_SHA256 47317a5a60f72de3d1b4fae4693b5f15514838ff3650bf8f2a965d3ba117dfc2
 ENV NEO4J_DOWNLOAD_ROOT http://dist.neo4j.org
 ENV NEO4J_TARBALL neo4j-$NEO4J_EDITION-$NEO4J_VERSION-unix.tar.gz
 ENV NEO4J_URI $NEO4J_DOWNLOAD_ROOT/$NEO4J_TARBALL
@@ -40,11 +48,11 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 WORKDIR /opt
 
-RUN curl --fail --show-error --location --output neo4j.tar.gz $NEO4J_URI \
-    && echo "$NEO4J_DOWNLOAD_SHA256 neo4j.tar.gz" | sha256sum --check --quiet - \
-    && tar --extract --file neo4j.tar.gz --directory . \
-    && mv neo4j-* neo4j \
-    && rm neo4j.tar.gz
+RUN curl --fail --show-error --location --output ${NEO4J_TARBALL} ${NEO4J_URI}
+RUN echo "${NEO4J_SHA256}  ${NEO4J_TARBALL}" | sha256sum -csw -
+RUN tar --extract --file ${NEO4J_TARBALL} --directory . \
+    && mv neo4j-$NEO4J_EDITION-$NEO4J_VERSION neo4j \
+    && rm ${NEO4J_TARBALL}
 
 VOLUME /import
 

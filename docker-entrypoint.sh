@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/sh -eu
 
 NEO4JDB_PATH=/data/neo4jdb
 export NEO4JDB_PATH
@@ -12,13 +12,13 @@ if [ "$1" == "neo4j" ]; then
     USER_GROUP=$(getent group $USER_GID | cut -d: -f1)
     if [ -z "$USER_GROUP" ] ; then
         USER_GROUP=neo4j
-        groupadd -g $USER_GID $USER_GROUP
+        addgroup -S -g $USER_GID $USER_GROUP
         echo "Added $USER_GID to $USER_GROUP"
     fi
     USER_USER=$(getent passwd $USER_UID | cut -d: -f1)
     if [ -z "$USER_USER" ] ; then
         USER_USER=neo4j
-        useradd -u $USER_UID -g $USER_GROUP $USER_USER
+        adduser -u $USER_UID -S -g $USER_GROUP $USER_USER
     fi
     chown -R $USER_UID:$USER_GID /opt /data
     EXISTING_UID=$(stat -c '%u' /data)

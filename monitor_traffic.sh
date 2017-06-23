@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh -eu
 
 # https://github.com/bgruening/docker-ipython-notebook/blob/master/monitor_traffic.sh
 if [ "$MONITOR_TRAFFIC" != "false" ] ; then
