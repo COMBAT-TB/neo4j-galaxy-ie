@@ -59,7 +59,12 @@ VOLUME /import
 VOLUME /data
 
 WORKDIR /opt/neo4j
-ENV NEO4J_dbms_allowFormatMigration true
+
+ENV NEO4J_dbms_allowFormatMigration=true \
+    NEO4J_dbms_unmanaged__extension__classes='extension.web=/guides' \
+    NEO4J_org_neo4j_server_guide_directory='data/guides' \
+	NEO4J_dbms_security_procedures_unrestricted='apoc.\\\*'
+
 COPY plugins/apoc-3.1.3.7-all.jar plugins/
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY run_neo4j.sh /run_neo4j.sh
