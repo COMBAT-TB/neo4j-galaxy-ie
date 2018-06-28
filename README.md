@@ -12,7 +12,7 @@ A modified version of the Neo4j:3.1 Docker image to cater for the current [Galax
 $ docker build -t quay.io/sanbi-sa/neo_ie:3.1 .
 ```
 
-*or*
+_or_
 
 **Pull the image:**
 
@@ -20,7 +20,7 @@ $ docker build -t quay.io/sanbi-sa/neo_ie:3.1 .
 $ docker pull quay.io/sanbi-sa/neo_ie:3.1
 ```
 
-*Try make sure you have nodejs `v0.10.45` and that you can run `$ node` (you might have to set a symlink)*
+_Try make sure you have nodejs `v0.10.45` and that you can run `$ node` (you might have to set a symlink)_
 
 ```
 $ apt-cache policy nodejs
@@ -33,11 +33,11 @@ nodejs:
         100 /var/lib/dpkg/status
 ```
 
-
 ```
 $ node -v
 v0.10.45
 ```
+
 Set `interactive_environment_plugins_directory` to `config/plugins/interactive_environments` in `config/galaxy.ini`
 
 Next, [follow](galaxy/README.md) in the `galaxy` folder to get the Neo4j IE installed.
@@ -56,6 +56,6 @@ For interest's sake, to run this:
 $ docker run -d \
     -p 7474:7474 \
     -v /tmp/data:/data \
-    -e NEO4J_AUTH=none -e USER_UID=$(id -u) -e USER_GID=$(id -g) \
-    quay.io/sanbi-sa/neo_ie:3.1
+    -e NEO4J_AUTH=none --user="$(id -u):$(id -g)" \
+    quay.io/sanbi-sa/neo_ie:3.4
 ```
