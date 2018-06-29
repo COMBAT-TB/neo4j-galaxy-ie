@@ -30,6 +30,20 @@ RUN apk add --no-cache --quiet \
 
 ENV PATH /var/lib/neo4j/bin:$PATH
 
+# These environment variables are passed from Galaxy to the container
+# and help you enable connectivity to Galaxy from within the container.
+# This means your user can import/export data from/to Galaxy.
+ENV DEBIAN_FRONTEND=noninteractive \
+	API_KEY=none \
+	DEBUG=false \
+	PROXY_PREFIX=none \
+	GALAXY_URL=none \
+	GALAXY_WEB_PORT=10000 \
+	HISTORY_ID=none \
+	REMOTE_HOST=none
+
+ENV NEO4J_AUTH=none
+
 WORKDIR /var/lib/neo4j
 
 VOLUME /data
