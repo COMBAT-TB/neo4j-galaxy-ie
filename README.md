@@ -1,4 +1,4 @@
-## Neo4jDB_Galaxy_IE
+# Neo4jDB_Galaxy_IE
 
 [![Docker Repository on Quay](https://quay.io/repository/sanbi-sa/neo_ie/status "Docker Repository on Quay")](https://quay.io/repository/sanbi-sa/neo_ie)
 
@@ -8,21 +8,23 @@ A modified version of the Neo4j:3.1 Docker image to cater for the current [Galax
 
 **Build the image:**
 
-```
-$ docker build -t quay.io/sanbi-sa/neo_ie:3.1 .
+```sh
+$ docker build -t quay.io/sanbi-sa/neo_ie:3.4 .
+...
 ```
 
-_or_
+or
 
 **Pull the image:**
 
-```
-$ docker pull quay.io/sanbi-sa/neo_ie:3.1
+```sh
+$ docker pull quay.io/sanbi-sa/neo_ie:3.4
+...
 ```
 
 _Try make sure you have nodejs `v0.10.45` and that you can run `$ node` (you might have to set a symlink)_
 
-```
+```sh
 $ apt-cache policy nodejs
 nodejs:
   Installed: 0.10.45-1nodesource1~trusty1
@@ -33,7 +35,7 @@ nodejs:
         100 /var/lib/dpkg/status
 ```
 
-```
+```sh
 $ node -v
 v0.10.45
 ```
@@ -52,7 +54,7 @@ Thanks to [@bgruening](https://github.com/bgruening) and [@erasche](https://gith
 
 For interest's sake, to run this:
 
-```
+```sh
 $ docker run -d \
     -p 7474:7474 \
     -v /tmp/data:/data \
