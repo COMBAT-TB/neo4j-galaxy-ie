@@ -62,7 +62,7 @@ ENV NEO4J_dbms_unmanaged__extension__classes='extension.web=/guides' \
 	NEO4J_dbms_directories_data='/data/neo4jdb'
 RUN echo 'browser.remote_content_hostname_whitelist=*' >> conf/neo4j.conf
 
-EXPOSE 7474 7473 7687
+EXPOSE 7474 7687
 
 ENTRYPOINT ["/sbin/tini", "-g", "--", "/docker-entrypoint.sh"]
 CMD ["neo4j"]
