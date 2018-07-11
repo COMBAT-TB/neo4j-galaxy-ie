@@ -18,9 +18,10 @@ if [ "$1" == "neo4j" ]; then
     USER_USER=$(getent passwd $USER_UID | cut -d: -f1)
     if [ -z "$USER_USER" ] ; then
         USER_USER=neo4j
-        adduser -u $USER_UID -S -g $USER_GROUP $USER_USER
+        adduser -u $USER_UID -S -g "$USER_GROUP nginx" $USER_USER
+        usermod -aG root $USER_USER
     fi
-    chown -R $USER_UID:$USER_GID /opt /data
+    chown -R $USER_UID:$USER_GID /opt /data /var /dev
     EXISTING_UID=$(stat -c '%u' /data)
     EXISTING_GID=$(stat -c '%g' /data)
     echo "/opt /data $EXISTING_UID $EXISTING_GID"
@@ -36,7 +37,9 @@ if [ "$1" == "neo4j" ]; then
         # echo "There is no database in $NEO4JDB_PATH, will exit." >&2
         # exit 1
     fi
-
+    # Let's start nginx
+    echo "Starting nginx..."
+    nginx -g "daemon on;"
     # set some settings in the neo4j install dir
     /set_neo4j_settings.sh
 
@@ -47,7 +50,7 @@ if [ "$1" == "neo4j" ]; then
     # connection so this is safe
     /monitor_traffic.sh &
 
-    gosu $USER_UID:$USER_GID /run_neo4j.sh
+    gosu $USER_UID /run_neo4j.sh
 elif [ "$1" == "dump-config" ]; then
     if [ -d /conf ]; then
         cp --recursive conf/* /conf
