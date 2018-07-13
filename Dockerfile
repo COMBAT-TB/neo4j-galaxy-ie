@@ -69,8 +69,8 @@ ENV NEO4J_dbms_allowFormatMigration=true \
 	NEO4J_org_neo4j_server_guide_directory='data/guides' \
 	NEO4J_dbms_security_procedures_unrestricted='apoc.\\\*' \
 	NEO4J_dbms_connectors_defaultAdvertisedAddress='0.0.0.0' \
-	ENABLE_BOLT=true 
-# MONITOR_TRAFFIC=true
+	ENABLE_BOLT=true \
+	MONITOR_TRAFFIC=true
 
 
 COPY plugins/apoc-3.1.3.7-all.jar plugins/
