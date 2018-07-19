@@ -1,7 +1,7 @@
 #!/bin/sh -eu
 
-NEO4JDB_PATH=/data/neo4jdb
-export NEO4JDB_PATH
+DB_PATH=/data/neo4jdb
+export DB_PATH
 
 if [ "$1" == "neo4j" ]; then
     if [ "${USER_UID:=none}" = "none" -o "${USER_GID:=none}" = "none" ] ; then
@@ -31,6 +31,7 @@ if [ "$1" == "neo4j" ]; then
         echo "The /data volume must be owned by user ID $USER_UID and group ID $USER_GID, instead it is owned by ${EXISTING_UID}: ${EXISTING_GID}" >&2
         exit 1
     fi
+
     if [ ! -d $NEO4JDB_PATH ] ; then
         gosu $USER_UID:$USER_GID cp -r /opt/neo4j/data $NEO4JDB_PATH
         echo "Initialising new database in $NEO4JDB_PATH"
@@ -42,15 +43,16 @@ if [ "$1" == "neo4j" ]; then
     nginx -g "daemon on;"
     # set some settings in the neo4j install dir
     /set_neo4j_settings.sh
-
+    cat conf/neo4j.conf
     rm -rf /opt/neo4j/data
-    ln -s $NEO4JDB_PATH /opt/neo4j/data
+    ln -s $DB_PATH /opt/neo4j/data
     # Launch traffic monitor which will automatically kill the container if
     # traffic stops - it waits 60 seconds before checking for an open
     # connection so this is safe
     /monitor_traffic.sh &
 
     gosu $USER_UID /run_neo4j.sh
+
 elif [ "$1" == "dump-config" ]; then
     if [ -d /conf ]; then
         cp --recursive conf/* /conf
