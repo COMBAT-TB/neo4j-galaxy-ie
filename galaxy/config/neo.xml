@@ -6,14 +6,14 @@
         <data_source>
             <model_class>HistoryDatasetAssociation</model_class>
             <!-- here you filter out which types of datasets are appropriate for this GIE -->
-               <!-- THE SPECIFIED DATATYPE IS FOR TESTING -->
-            <test type="isinstance" test_attr="datatype" result_type="datatype">Neo4jDB.Neo4jDB</test>
+            <!-- THE SPECIFIED DATATYPE IS FOR TESTING -->
+            <test type="isinstance" test_attr="datatype" result_type="datatype">neo4j.Neo4jDB</test>
             <to_param param_attr="id">dataset_id</to_param>
         </data_source>
     </data_sources>
     <params>
         <param type="dataset" var_name_in_template="hda" required="true">dataset_id</param>
     </params>
-        <!-- Be sure that your entrypoint name is correct! -->
+    <!-- Be sure that your entrypoint name is correct! -->
     <entry_point entry_point_type="mako">neo.mako</entry_point>
 </interactive_environment>
