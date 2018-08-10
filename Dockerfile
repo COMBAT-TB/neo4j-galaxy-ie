@@ -37,6 +37,11 @@ ENV NEO4J_DOWNLOAD_ROOT http://dist.neo4j.org
 ENV NEO4J_TARBALL neo4j-$NEO4J_EDITION-$NEO4J_VERSION-unix.tar.gz
 ENV NEO4J_URI $NEO4J_DOWNLOAD_ROOT/$NEO4J_TARBALL
 ENV NEO4J_AUTH none
+# setting "dbms.connector.bolt.enabled" "false"
+# setting "dbms.connector.https.enabled" "false"
+
+ENV NEO4J_dbms_connector_bolt_enabled false
+ENV NEO4J_dbms_connector_https_enabled false
 
 # These environment variables are passed from Galaxy to the container
 # and help you enable connectivity to Galaxy from within the container.
@@ -64,6 +69,7 @@ VOLUME /data
 
 WORKDIR /opt/neo4j
 
+
 ENV NEO4J_dbms_allowFormatMigration=true \
 	NEO4J_dbms_unmanaged__extension__classes='extension.web=/guides' \
 	NEO4J_org_neo4j_server_guide_directory='data/guides' \
@@ -74,6 +80,7 @@ ENV NEO4J_dbms_allowFormatMigration=true \
 
 
 COPY plugins/apoc-3.1.3.7-all.jar plugins/
+
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY run_neo4j.sh /run_neo4j.sh
 COPY set_neo4j_settings.sh /set_neo4j_settings.sh

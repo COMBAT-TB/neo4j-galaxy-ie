@@ -12,7 +12,6 @@ A modified version of the Neo4j:3.1 Docker image to cater for the current [Galax
 $ docker build -t quay.io/sanbi-sa/neo_ie:3.1.9 .
 ...
 ```
-
 _or_
 
 **Pull the image:**
