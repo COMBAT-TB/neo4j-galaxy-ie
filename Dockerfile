@@ -73,13 +73,16 @@ WORKDIR /opt/neo4j
 ENV NEO4J_dbms_allowFormatMigration=true \
 	NEO4J_dbms_unmanaged__extension__classes='extension.web=/guides' \
 	NEO4J_org_neo4j_server_guide_directory='data/guides' \
-	NEO4J_dbms_security_procedures_unrestricted='apoc.\\\*' \
+	# NEO4J_browser_post__connect__cmd="play http://localhost:7474/guides/combattb_graph.html" \
+	# NEO4J_dbms_shell_read__only=true \
+	NEO4J_dbms_security_procedures_unrestricted='apoc.*,algo.*' \
 	NEO4J_dbms_connectors_defaultAdvertisedAddress='0.0.0.0' \
 	ENABLE_BOLT=true \
 	MONITOR_TRAFFIC=true
+RUN echo 'browser.remote_content_hostname_whitelist=*' >> conf/neo4j.conf
 
 
-COPY plugins/apoc-3.1.3.7-all.jar plugins/
+COPY plugins/*.jar plugins/
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY run_neo4j.sh /run_neo4j.sh
