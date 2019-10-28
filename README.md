@@ -39,6 +39,8 @@ docker run -d \
 
 *Make sure you have nodejs `v0.10.45` and that you can run `node` (you might have to set a symlink)*
 
+### nodejs
+
 ```sh
 apt-cache policy nodejs
 nodejs:
@@ -55,9 +57,13 @@ node -v
 v0.10.45
 ```
 
+### Config
+
 Set `interactive_environment_plugins_directory` to `config/plugins/interactive_environments` in `config/galaxy.ini`
 
 Next, [follow](galaxy/README.md) in the `galaxy` folder to get the Neo4j IE installed.
+
+### Proxy setup
 
 Then, [setup](https://docs.galaxyproject.org/en/master/admin/interactive_environments.html#setting-up-the-proxy) your proxy accordingly.
 
